@@ -140,7 +140,8 @@ ipvs:
   syncPeriod: 60s
   excludeCIDRs:
     - "10.20.30.40/16"
-    - "fd00:1::0/64"
+	- "fd00:1::0/64"
+  excludeExternalIP: false
 kind: KubeProxyConfiguration
 metricsBindAddress: "%s"
 mode: "%s"
@@ -252,9 +253,10 @@ nodePortAddresses:
 				SyncPeriod:    metav1.Duration{Duration: 60 * time.Second},
 			},
 			IPVS: kubeproxyconfig.KubeProxyIPVSConfiguration{
-				MinSyncPeriod: metav1.Duration{Duration: 10 * time.Second},
-				SyncPeriod:    metav1.Duration{Duration: 60 * time.Second},
-				ExcludeCIDRs:  []string{"10.20.30.40/16", "fd00:1::0/64"},
+				MinSyncPeriod:     metav1.Duration{Duration: 10 * time.Second},
+				SyncPeriod:        metav1.Duration{Duration: 60 * time.Second},
+				ExcludeCIDRs:      []string{"10.20.30.40/16", "fd00:1::0/64"},
+				ExcludeExternalIP: false,
 			},
 			MetricsBindAddress: tc.metricsBindAddress,
 			Mode:               kubeproxyconfig.ProxyMode(tc.mode),
@@ -401,6 +403,7 @@ ipvs:
   minSyncPeriod: 0s
   scheduler: ""
   syncPeriod: 30s
+  excludeExternalIP: false
 kind: KubeProxyConfiguration
 metricsBindAddress: 127.0.0.1:10249
 mode: ""
